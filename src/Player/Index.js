@@ -15,7 +15,7 @@ function Player({ name, score, current, isActive }) {
       <p className="score">{score}</p>
       <div className="current">
         <p className="current-label">Current</p>
-        <p className="current-score">{current}</p>
+        <p className="current-score">{current || 0}</p>
       </div>
     </section>
   )
