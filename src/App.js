@@ -1,6 +1,6 @@
 import './App.css'
 import Player from './Player/Index'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function App() {
   const [activePlayer, setActivePlayer] = useState(1)
@@ -16,15 +16,17 @@ function App() {
   }
 
   const handleRollDice = () => {
-    const rndNum = Math.trunc(Math.random() * 6) + 1
-    setDiceNumber(rndNum)
-    if (rndNum === 1) {
-      setActivePlayer(activePlayer === 1 ? 2 : 1)
+    setDiceNumber(Math.trunc(Math.random() * 6) + 1)
+  }
+
+  useEffect(() => {
+    if (diceNumber === 1) {
+      setActivePlayer((activePlayer) => (activePlayer === 1 ? 2 : 1))
       setCurrent(0)
     } else {
-      setCurrent(current + rndNum)
+      setCurrent((current) => current + diceNumber)
     }
-  }
+  }, [diceNumber])
 
   const handleHold = () => {
     const newScore = [...score]
