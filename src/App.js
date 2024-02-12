@@ -3,24 +3,35 @@ import Player from './Player/Index'
 import { useState } from 'react'
 
 function App() {
-  const [activePlayer, setActivePlayer] = useState(0)
+  const [activePlayer, setActivePlayer] = useState(1)
   const [score, setScore] = useState([0, 0])
   const [current, setCurrent] = useState(0)
-  const [diceNumber, setDiceNumber] = useState(3)
+  const [diceNumber, setDiceNumber] = useState(null)
 
   const handleNewGame = () => {
-    activePlayer = true
-    score = 0
-    current = 0
+    setActivePlayer(1)
+    setScore([0, 0])
+    setCurrent(0)
+    setDiceNumber(0)
   }
 
-  const handleRollDice = () => rollDice()
+  const handleRollDice = () => {
+    const rndNum = Math.trunc(Math.random() * 6) + 1
+    setDiceNumber(rndNum)
+    if (rndNum === 1) {
+      setActivePlayer(activePlayer === 1 ? 2 : 1)
+      setCurrent(0)
+    } else {
+      setCurrent(current + rndNum)
+    }
+  }
 
-  const handleHold = () => {}
-
-  const rollDice = () => {
-    const num = Math.trunc(Math.random() * 6) + 1
-    return '../public/dice-{`num`}.png'
+  const handleHold = () => {
+    const newScore = [...score]
+    newScore[activePlayer - 1] += current
+    setScore(newScore)
+    setActivePlayer(activePlayer === 1 ? 2 : 1)
+    setCurrent(0)
   }
 
   return (
