@@ -3,11 +3,12 @@ import './Player.css'
 function Player({ name, score, current, isActive }) {
   //const { name, score, current, isActive } = props
 
-  const classPlayer = isActive
-    ? score >= 100
+  const classPlayer =
+    score >= 100
       ? 'player player--winner'
-      : 'player player--active'
-    : 'player'
+      : isActive
+      ? 'player player--active'
+      : 'player'
 
   return (
     <section className={classPlayer}>

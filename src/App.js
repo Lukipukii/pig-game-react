@@ -1,5 +1,5 @@
 import './App.css'
-import Player from './Player/Index'
+import Player from './Player/Player'
 import { useState, useEffect } from 'react'
 
 function App() {
@@ -36,6 +36,8 @@ function App() {
     setCurrent(0)
   }
 
+  const endGame = Math.max(...score) >= 100 ? true : false
+
   return (
     <main>
       <Player
@@ -60,10 +62,14 @@ function App() {
       <button className="btn btn--new" onClick={handleNewGame}>
         🔄 New game
       </button>
-      <button className="btn btn--roll" onClick={handleRollDice}>
+      <button
+        className="btn btn--roll"
+        onClick={handleRollDice}
+        disabled={endGame}
+      >
         🎲 Roll dice
       </button>
-      <button className="btn btn--hold" onClick={handleHold}>
+      <button className="btn btn--hold" onClick={handleHold} disabled={endGame}>
         📥 Hold
       </button>
     </main>
